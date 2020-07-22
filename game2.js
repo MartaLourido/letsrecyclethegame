@@ -12,6 +12,9 @@ wine.src = 'wine.png';
 let bin = new Image();
 bin.src = 'bin.png';
 
+let gameOver = new Image();
+gameOver.src = 'gameOver.png'
+
 
 let wineX = 100; // x position
 let wineY = 100; // y position
@@ -71,6 +74,7 @@ function draw() {
     addwine();
         
     moveWine();
+   
     
     // DRAW THE CANVAS ELEMENTS
     ctx.drawImage (bgImg, 0, 0);
@@ -79,7 +83,8 @@ function draw() {
     // checkCollision();
     refreshScore();
     wineCollision();
-    // gameOver();
+    
+   
 
     
  
@@ -89,8 +94,10 @@ function draw() {
     }
     
     
+    
 
    console.log("draw")
+   finishGame();
 }
 
 // colocar el interval en una function
@@ -103,7 +110,6 @@ function startLoop() {
 
 // hacer target del boton
 const bigButton = document.querySelector('.big-button');
-
 
 bigButton.addEventListener("click", startGame)
 
@@ -120,24 +126,28 @@ function startGame() {
     
     //document.body.appendChild(canvasContainer); // adds the canvas to the body element
     startLoop()
+    
 
 }
 
-function gameOver() {
+// function gameoverthefunction() {
     
-    // hacer target del splash-screen
-    const splashScreen = document.querySelector('.splash-screen-btn');
-    // remover splashscreen actual usando .remove()
-    splashScreen.remove()
-    // crear canvas
-    //let canvasContainer = document.createElement("div")
-    //canvasContainer.setAttribute("id", "canvas-container")
-    //canvasContainer.innerHTML(`<canvas id ="myCanvas" width="757" height="754" id="game" style="display: block; margin-left: auto;         margin-right: auto; border: 1px solid black;" Your Browser is not compatible with this game. We recommend Google Chrome, Mozilla Firefox, or Opera.></canvas>`)
+//     // hacer target del splash-screen
+//     const gameoverScreen = document.querySelector('.gameOver-screen-btn');
+//     // remover splashscreen actual usando .remove()
+//     gameoverScreen.remove()
+//     // crear canvas
+//     //let canvasContainer = document.createElement("div")
+//     //canvasContainer.setAttribute("id", "canvas-container")
+//     //canvasContainer.innerHTML(`<canvas id ="myCanvas" width="757" height="754" id="game" style="display: block; margin-left: auto;         margin-right: auto; border: 1px solid black;" Your Browser is not compatible with this game. We recommend Google Chrome, Mozilla Firefox, or Opera.></canvas>`)
+//     //document.body.appendChild(canvasContainer); // adds the canvas to the body element
+//     startLoop()
+//     if(overPoints >= 10){
+//         console.log ("perdiste");
+//         ctx.drawImage (gameOver, 0, 0);
+//     }
     
-    //document.body.appendChild(canvasContainer); // adds the canvas to the body element
-    startLoop()
-
-}
+// }
 
 
 // agregar el canvas al DOM con appendchild
@@ -195,13 +205,21 @@ function refreshScore() {
     ctx.fillStyle = "black";
     ctx.font = "20px Verdana";
     ctx.fillText('Score: ' + score, 10, 30); // display the score
+    
 }
 
-// function gameOver(){
-//     if(overPoints = 10){
-//         window.location.replace("gameover.html")
-//     }
-// }
+function finishGame(){
+    
+    if(overPoints >= 0){
+        console.log ("perdiste");
+        //ctx.drawImage (gameOver, 0, 0);
+        // document.getElementById("game").remove();
+        // clearInterval(intervalId);
+    
+        // location.href = "gameOver.html";
+   }
+}
+
 
 
 
@@ -219,14 +237,29 @@ function wineCollision(){
             console.log("paso entre medio del bin");
             score++;
             winesToRemove.push(wine);
+            if (score == 4){
+                clearInterval(intervalId);
+                location.href = "winner.html";
+              }
          }
-         else{
-            //game over
+    
+        //  else (score >= 10){
+                
+        //         clearInterval(intervalId);
+        //         location.href = "gameover.html";
+            
+        //     //game over
 
-            // isGameover = true
-            // gameOver(); //Crear funcion game over
-            overPoints ++;
-        }
+        //     // isGameover = true
+        //     // gameOver(); //Crear funcion game over
+        //     // overPoints ++;
+          
+        //         //if Loose remove canvas - Players lost the game
+        //         // overPoints ++;
+
+               
+          
+        // }
 
         
 
