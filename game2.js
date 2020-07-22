@@ -1,5 +1,7 @@
-let canvas = document.getElementById('myCanvas');
-let ctx = canvas.getContext('2d');
+//let canvas = document.getElementById('myCanvas');
+//let canvas;
+//let ctx = canvas.getContext('2d');
+//let ctx;
 
 let bgImg = new Image();
 bgImg.src = 'background.png';
@@ -91,9 +93,61 @@ function draw() {
    console.log("draw")
 }
 
-intervalId = setInterval (() => {
-    requestAnimationFrame(draw)
-}, 30)
+// colocar el interval en una function
+function startLoop() {
+    intervalId = setInterval (() => {
+        requestAnimationFrame(draw)
+    }, 30)
+}
+
+
+// hacer target del boton
+const bigButton = document.querySelector('.big-button');
+
+
+bigButton.addEventListener("click", startGame)
+
+function startGame() {
+    
+    // hacer target del splash-screen
+    const splashScreen = document.querySelector('.splash-screen-btn');
+    // remover splashscreen actual usando .remove()
+    splashScreen.remove()
+    // crear canvas
+    //let canvasContainer = document.createElement("div")
+    //canvasContainer.setAttribute("id", "canvas-container")
+    //canvasContainer.innerHTML(`<canvas id ="myCanvas" width="757" height="754" id="game" style="display: block; margin-left: auto;         margin-right: auto; border: 1px solid black;" Your Browser is not compatible with this game. We recommend Google Chrome, Mozilla Firefox, or Opera.></canvas>`)
+    
+    //document.body.appendChild(canvasContainer); // adds the canvas to the body element
+    startLoop()
+
+}
+
+function gameOver() {
+    
+    // hacer target del splash-screen
+    const splashScreen = document.querySelector('.splash-screen-btn');
+    // remover splashscreen actual usando .remove()
+    splashScreen.remove()
+    // crear canvas
+    //let canvasContainer = document.createElement("div")
+    //canvasContainer.setAttribute("id", "canvas-container")
+    //canvasContainer.innerHTML(`<canvas id ="myCanvas" width="757" height="754" id="game" style="display: block; margin-left: auto;         margin-right: auto; border: 1px solid black;" Your Browser is not compatible with this game. We recommend Google Chrome, Mozilla Firefox, or Opera.></canvas>`)
+    
+    //document.body.appendChild(canvasContainer); // adds the canvas to the body element
+    startLoop()
+
+}
+
+
+// agregar el canvas al DOM con appendchild
+//var canv = document.createElement('canvas');
+
+//document.getElementById('splash-screen').appendChild(canvas); // adds the canvas 
+// crear addeventlistener para llamar la function del interval
+//document.addEventListener("click", setInterval());
+  
+
 
 
 function binMovement(){
@@ -151,8 +205,51 @@ function refreshScore() {
 
 
 
+function wineCollision(){ 
+    // console.log("paso por aqui 1");
+    var winesToRemove=[];
+    wines.forEach(function(wine){
+        // console.log("paso por aqui 2");
+        //verificamos si supera la altura del bin
+        
+        //console.log(wine.y);
+        // console.log(wine.x);
+        // console.log(binX);
+        if((wine.y >= binY)&&(wine.x >= binX && wine.x <= binX+100)){
+            console.log("paso entre medio del bin");
+            score++;
+            winesToRemove.push(wine);
+         }
+         else{
+            //game over
+
+            // isGameover = true
+            // gameOver(); //Crear funcion game over
+            overPoints ++;
+        }
+
+        
+
+    });
+    winesToRemove.forEach(function(w){
+        removeFromArray(wines,w);
+    });
+    
+}
+
+function removeFromArray(array, value) {
+    var idx = array.indexOf(value);
+    if (idx !== -1) {
+        array.splice(idx, 1);
+    }
+    return array;
+}
 
 
+
+
+
+//Pruebas anteriores:
 
 
 // function colision () { //si llamo a wine no funciona
@@ -173,52 +270,6 @@ function refreshScore() {
 //     }
 //     return false;
 //   }
-
-
-
-
-
-
-
-function wineCollision(){ 
-    // console.log("paso por aqui 1");
-    var winesToRemove=[];
-    wines.forEach(function(wine){
-        // console.log("paso por aqui 2");
-        //verificamos si supera la altura del bin
-        
-        //console.log(wine.y);
-        // console.log(wine.x);
-        // console.log(binX);
-        if((wine.y >= binY)&&(wine.x >= binX && wine.x <= binX+100)){
-            console.log("paso entre medio del bin");
-            score++;
-            winesToRemove.push(wine);
-         }
-        //  else{
-        //     //game over
-
-        //     // isGameover = true
-        //     // gameOver(); //Crear funcion game over
-        //     overPoints ++;
-        // }
-
-        
-
-    });
-    winesToRemove.forEach(function(w){
-        removeFromArray(wines,w);
-    });
-    
-}
-
-function removeFromArray(array, value) {
-    var idx = array.indexOf(value);
-    if (idx !== -1) {
-        array.splice(idx, 1);
-    }
-    return array;
-}
 
 
 
