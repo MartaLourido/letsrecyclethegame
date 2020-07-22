@@ -42,6 +42,11 @@ var wineHeight = 15;
 var totalwines = 10;
 var wines = [];
 
+var dead = 0;
+var water = 590;
+var scoretoWin = 4;
+    
+
 
 
 document.addEventListener('keydown', function(event){
@@ -115,10 +120,7 @@ bigButton.addEventListener("click", startGame)
 
 function startGame() {
     
-    // hacer target del splash-screen
-    const splashScreen = document.querySelector('.splash-screen-btn');
-    // remover splashscreen actual usando .remove()
-    splashScreen.remove()
+    showSplash(false);
     // crear canvas
     //let canvasContainer = document.createElement("div")
     //canvasContainer.setAttribute("id", "canvas-container")
@@ -127,6 +129,23 @@ function startGame() {
     //document.body.appendChild(canvasContainer); // adds the canvas to the body element
     startLoop()
     
+
+}
+
+function showSplash(visible){
+    // hacer target del splash-screen
+    const splashScreen = document.querySelector('.splash-screen-btn');
+    // remover splashscreen actual usando .remove()
+    if(visible)
+        splashScreen.style.display = "block";
+    else
+        splashScreen.style.display = "none";
+}
+
+function changeButtonStartText (text){
+    const startButton = document.getElementById('btn-start');
+    console.log(startButton);
+    startButton.innerHTML = text;
 
 }
 
@@ -156,9 +175,23 @@ function startGame() {
 //document.getElementById('splash-screen').appendChild(canvas); // adds the canvas 
 // crear addeventlistener para llamar la function del interval
 //document.addEventListener("click", setInterval());
-  
+ 
+function gOver(){
+let canvas = document.getElementById('game');
 
+let ctx = canvas.getContext('2d');
 
+let goImg = new Image();
+goImg.onload = function(){
+    ctx.drawImage(goImg, 0, 0, 760, 760);
+    // game.load.image('start', 'button.png');
+};
+goImg.src = "gameover.png";
+
+wines=[];
+score=0;
+dead=0;
+}
 
 function binMovement(){
     if (isRightArrow && binX < canvas.width - binWidth){
@@ -220,12 +253,28 @@ function finishGame(){
    }
 }
 
+function youWin(){
+    let canvas = document.getElementById('game')
 
+
+    let ctx = canvas.getContext('2d')
+    let bgImg = new Image();
+    bgImg.onload = function(){
+    ctx.drawImage(bgImg, 0, 0, 760, 760);
+    game.load.image('start', 'button.png');
+};
+bgImg.src = "winner.png"
+
+wines=[];
+score=0;
+dead=0;
+}
 
 
 function wineCollision(){ 
     // console.log("paso por aqui 1");
     var winesToRemove=[];
+    
     wines.forEach(function(wine){
         // console.log("paso por aqui 2");
         //verificamos si supera la altura del bin
@@ -237,29 +286,38 @@ function wineCollision(){
             console.log("paso entre medio del bin");
             score++;
             winesToRemove.push(wine);
-            if (score == 4){
+            if (score == scoretoWin){//
                 clearInterval(intervalId);
-                location.href = "winner.html";
+                // location.href = "winner.html";
+                showSplash(true);
+                changeButtonStartText ("New Game");
+                youWin();//hacer lo mismo que en la funcion go si quiero que cambie
+                return;
               }
          }
     
-        //  else (score >= 10){
-                
-        //         clearInterval(intervalId);
-        //         location.href = "gameover.html";
+        else if(wine.y >= water){
+                dead ++;
+                if (dead == 100) {
+                clearInterval(intervalId);
+                // location.href = "gameover.html";
+                showSplash(true);
+                changeButtonStartText ("Try Again");
+                gOver();
+                }
             
-        //     //game over
+            //game over
 
-        //     // isGameover = true
-        //     // gameOver(); //Crear funcion game over
-        //     // overPoints ++;
+            // isGameover = true
+            // gameOver(); //Crear funcion game over
+            // overPoints ++;
           
-        //         //if Loose remove canvas - Players lost the game
-        //         // overPoints ++;
+                //if Loose remove canvas - Players lost the game
+                // overPoints ++;
 
                
           
-        // }
+        }
 
         
 
