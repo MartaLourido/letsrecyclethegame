@@ -12,8 +12,8 @@ wine.src = 'wine.png';
 let bin = new Image();
 bin.src = 'bin.png';
 
-let gameOver = new Image();
-gameOver.src = 'gameOver.png'
+// let gameOver = new Image();
+// gameOver.src = 'gameOver.png'
 
 
 let wineX = 100; // x position
@@ -43,7 +43,7 @@ var totalwines = 10;
 var wines = [];
 
 var dead = 0;
-var water = 590;
+var water = 800;//si las botellas se te caen al agua pierdes 
 var scoretoWin = 4;
     
 
@@ -88,21 +88,15 @@ function draw() {
     // checkCollision();
     refreshScore();
     wineCollision();
-    
    
-
-    
- 
    
     for (var i = 0; i < wines.length; i++) {
         ctx.drawImage (wine, wines[i].x, wines[i].y);
     }
-    
-    
-    
+   
 
    console.log("draw")
-   finishGame();
+//    finishGame();
 }
 
 // colocar el interval en una function
@@ -193,6 +187,25 @@ score=0;
 dead=0;
 }
 
+
+function youWin(){
+    let canvas = document.getElementById('game')
+
+
+    let ctx = canvas.getContext('2d')
+    let bgImg = new Image();
+    bgImg.onload = function(){
+    ctx.drawImage(bgImg, 0, 0, 760, 760);
+    // game.load.image('start', 'button.png');
+};
+bgImg.src = "winner.png"
+
+wines=[];
+score=0;
+dead=0;
+
+}
+
 function binMovement(){
     if (isRightArrow && binX < canvas.width - binWidth){
         binX = binX + 5
@@ -241,36 +254,21 @@ function refreshScore() {
     
 }
 
-function finishGame(){
+// function finishGame(){ la comento por si esta afectando 
     
-    if(overPoints >= 0){
-        console.log ("perdiste");
-        //ctx.drawImage (gameOver, 0, 0);
-        // document.getElementById("game").remove();
-        // clearInterval(intervalId);
+//     if(overPoints >= 0){
+//         console.log ("perdiste");
+//         //ctx.drawImage (gameOver, 0, 0);
+//         // document.getElementById("game").remove();
+//         // clearInterval(intervalId);
     
-        // location.href = "gameOver.html";
-   }
-}
-
-function youWin(){
-    let canvas = document.getElementById('game')
+//         // location.href = "gameOver.html";
+//    }
+// }
 
 
-    let ctx = canvas.getContext('2d')
-    let bgImg = new Image();
-    bgImg.onload = function(){
-    ctx.drawImage(bgImg, 0, 0, 760, 760);
-    game.load.image('start', 'button.png');
-};
-bgImg.src = "winner.png"
 
-wines=[];
-score=0;
-dead=0;
-}
-
-
+    
 function wineCollision(){ 
     // console.log("paso por aqui 1");
     var winesToRemove=[];
@@ -286,7 +284,7 @@ function wineCollision(){
             console.log("paso entre medio del bin");
             score++;
             winesToRemove.push(wine);
-            if (score == scoretoWin){//
+            if (score == scoretoWin){//declarado arriba scoretoWin
                 clearInterval(intervalId);
                 // location.href = "winner.html";
                 showSplash(true);
@@ -298,12 +296,13 @@ function wineCollision(){
     
         else if(wine.y >= water){
                 dead ++;
-                if (dead == 100) {
+                if (dead >= 20) {
                 clearInterval(intervalId);
                 // location.href = "gameover.html";
                 showSplash(true);
                 changeButtonStartText ("Try Again");
                 gOver();
+                
                 }
             
             //game over
@@ -312,7 +311,7 @@ function wineCollision(){
             // gameOver(); //Crear funcion game over
             // overPoints ++;
           
-                //if Loose remove canvas - Players lost the game
+                
                 // overPoints ++;
 
                
@@ -364,32 +363,3 @@ function removeFromArray(array, value) {
 
 
 
-// function Collision()
-// {
-
-//     Collision.prototype.Overlapping = function (wine, bin)
-//     {
-//         //variables to see if overlaps are taking place
-//         var L_Overlap,
-//             R_Overlap,
-//             T_Overlap,
-//             B_Overlap;
-//         //check to see if the left edge is overlapping
-//         L_Overlap = (wine.Left >= bin.Left) & (wine.Left <= bin.Right);
-//         //check to see if the right edge is overlapping
-//         R_Overlap = (wine.Right >= bin.Left) & (wine.Right <= bin.Right);
-//         //check to see if the top edge is overlapping
-//         T_Overlap = (wine.Top >= bin.Top) & (wine.Top <= bin.Bottom);
-//         //check to see if the bottom edge is overlapping
-//         B_Overlap = (wine.Bottom >= bin.Top) & (wine.Bottom <= bin.Bottom);
-//         //if either left/right and either top/bottom edges are overlapping
-//         if ((L_Overlap | R_Overlap) & (T_Overlap | B_Overlap)) {
-//             //return true - there is a collicion
-//             return true;
-//         }
-//         else {
-//             //otherwise return false there is no collision
-//             return false;
-//         }
-//     }
-// }
