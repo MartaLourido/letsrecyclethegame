@@ -10,7 +10,7 @@ let wine = new Image();
 wine.src = 'wine.png';
 
 let bin = new Image();
-bin.src = 'bin.png';
+bin.src = 'bin6.png';
 
 let gameOver = new Image();
 gameOver.src = 'gameOver.png'
@@ -46,7 +46,15 @@ var dead = 0;
 var water = 500;//variable que define la linea de donde empieza el mar
 var scoretoWin = 10; //botellas que necesitas para ganar
 var scoretoDead = 10;//si estas botellas caen al mar pierdes
-var mySound; //tratando de crear un sonido
+// var mySound; //tratando de crear un sonido
+
+// create "mySound"...
+var mySound = soundManager.createSound({
+    url: '/path/to/an.mp3'
+  });
+  
+  // ...and play it
+  mySound.play();
     
 // function play() {
 //     var audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3');
