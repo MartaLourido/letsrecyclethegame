@@ -49,8 +49,7 @@ var scoretoDead = 10;//si estas botellas caen al mar pierdes
 //var mySound; //tratando de crear un sonido
 
 var mySound;
-mySound = new sound("backgroundsound.wav");
-gameOverSound = new sound("gameover.wav");   
+
 
 
 document.addEventListener('keydown', function(event){
@@ -134,7 +133,9 @@ bigButton.addEventListener("click", startGame)
 function startGame() {
     
     showSplash(false);
- 
+    mySound = new sound("backgroundsound.wav");
+    gameOverSound = new sound("gameover.wav");   
+    winSound = new sound("winsound.mp3");   
     
     startLoop()
     
@@ -171,7 +172,11 @@ goImg.onload = function(){
 };
 goImg.src = "gameover.png";
 
+
+// mySound.pause();
 gameOverSound.play();//trying to get a gameover sound
+refreshScore();
+refreshDead();
 
 wines=[];
 score=0;
@@ -187,12 +192,11 @@ function youWin(){
     let bgImg = new Image();
     bgImg.onload = function(){
     ctx.drawImage(bgImg, 0, 0, 760, 760);
-    
     // game.load.image('start', 'button.png');
 };
 bgImg.src = "winner.png"
 
-mySound.pause();
+winSound.play();
 wines=[];
 score=0;
 dead=0;
@@ -240,6 +244,7 @@ function moveWine(){
 }
 
 function refreshScore() {
+    
     scoreSpan = score;
     ctx.fillStyle = "black";
     ctx.font = "20px Verdana";
@@ -248,6 +253,7 @@ function refreshScore() {
 }
 
 function refreshDead() {
+   
     deadSpan = dead;
     ctx.fillStyle = "black";
     ctx.font = "20px Verdana";
