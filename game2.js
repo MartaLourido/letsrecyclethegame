@@ -46,20 +46,11 @@ var dead = 0;
 var water = 500;//variable que define la linea de donde empieza el mar
 var scoretoWin = 10; //botellas que necesitas para ganar
 var scoretoDead = 10;//si estas botellas caen al mar pierdes
-// var mySound; //tratando de crear un sonido
+//var mySound; //tratando de crear un sonido
 
-// create "mySound"...
-var mySound = soundManager.createSound({
-    url: '/path/to/an.mp3'
-  });
-  
-  // ...and play it
-  mySound.play();
-    
-// function play() {
-//     var audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3');
-//     audio.play();
-//   }//tratando de implementar audio
+var mySound;
+mySound = new sound("backgroundsound.wav");
+gameOverSound = new sound("gameover.wav");   
 
 
 document.addEventListener('keydown', function(event){
@@ -77,27 +68,22 @@ document.addEventListener('keyup', function(event){
     isLefttArrow = false;
 })
 
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+      this.sound.play();
+    }
+    this.stop = function(){
+      this.sound.pause();
+    }
+  }
 
-// function sound(src) {  tratando de crear sonido
-//     this.sound = document.createElement("audio");
-//     this.sound.src = src;
-//     this.sound.setAttribute("preload", "auto");
-//     this.sound.setAttribute("controls", "none");
-//     this.sound.style.display = "none";
-//     document.body.appendChild(this.sound);
-//     this.play = function(){
-//       this.sound.play();
-//     }
-//     this.stop = function(){
-//       this.sound.pause();
-//     }
-//   }
 
-
-// function clearCanvas() {
-   
-//     // ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
-// }
 
 
 function draw() {
@@ -112,6 +98,7 @@ function draw() {
     
     // DRAW THE CANVAS ELEMENTS
     ctx.drawImage (bgImg, 0, 0);
+  
     //crear array, insertar elementos y crear forEach
     ctx.drawImage (bin, binX, binY);//arriba declaro estas variables globales y aqui las tengo que llamar
     // checkCollision();
@@ -119,21 +106,23 @@ function draw() {
     refreshDead();
     wineCollision();
    
-   
+    mySound.play();//play the background sound
     for (var i = 0; i < wines.length; i++) {
         ctx.drawImage (wine, wines[i].x, wines[i].y);
     }
    
 
    console.log("draw")
-//    finishGame();
+   
+  
 }
 
 // colocar el interval en una function
 function startLoop() {
     intervalId = setInterval (() => {
         requestAnimationFrame(draw)
-    }, 30)
+    }, 25)
+    
 }
 
 
@@ -145,13 +134,8 @@ bigButton.addEventListener("click", startGame)
 function startGame() {
     
     showSplash(false);
-    // mySound = new sound("bounce.mp3");//tratando de crear un sonido
-    // crear canvas
-    //let canvasContainer = document.createElement("div")
-    //canvasContainer.setAttribute("id", "canvas-container")
-    //canvasContainer.innerHTML(`<canvas id ="myCanvas" width="757" height="754" id="game" style="display: block; margin-left: auto;         margin-right: auto; border: 1px solid black;" Your Browser is not compatible with this game. We recommend Google Chrome, Mozilla Firefox, or Opera.></canvas>`)
+ 
     
-    //document.body.appendChild(canvasContainer); // adds the canvas to the body element
     startLoop()
     
 
@@ -174,32 +158,6 @@ function changeButtonStartText (text){
 
 }
 
-// function gameoverthefunction() {
-    
-//     // hacer target del splash-screen
-//     const gameoverScreen = document.querySelector('.gameOver-screen-btn');
-//     // remover splashscreen actual usando .remove()
-//     gameoverScreen.remove()
-//     // crear canvas
-//     //let canvasContainer = document.createElement("div")
-//     //canvasContainer.setAttribute("id", "canvas-container")
-//     //canvasContainer.innerHTML(`<canvas id ="myCanvas" width="757" height="754" id="game" style="display: block; margin-left: auto;         margin-right: auto; border: 1px solid black;" Your Browser is not compatible with this game. We recommend Google Chrome, Mozilla Firefox, or Opera.></canvas>`)
-//     //document.body.appendChild(canvasContainer); // adds the canvas to the body element
-//     startLoop()
-//     if(overPoints >= 10){
-//         console.log ("perdiste");
-//         ctx.drawImage (gameOver, 0, 0);
-//     }
-    
-// }
-
-
-// agregar el canvas al DOM con appendchild
-//var canv = document.createElement('canvas');
-
-//document.getElementById('splash-screen').appendChild(canvas); // adds the canvas 
-// crear addeventlistener para llamar la function del interval
-//document.addEventListener("click", setInterval());
  
 function gOver(){
 let canvas = document.getElementById('game');
@@ -213,6 +171,7 @@ goImg.onload = function(){
 };
 goImg.src = "gameover.png";
 
+gameOverSound.play();//trying to get a gameover sound
 
 wines=[];
 score=0;
@@ -228,12 +187,12 @@ function youWin(){
     let bgImg = new Image();
     bgImg.onload = function(){
     ctx.drawImage(bgImg, 0, 0, 760, 760);
+    
     // game.load.image('start', 'button.png');
 };
 bgImg.src = "winner.png"
-//mySound.play();//tratando de crear sonido
-//play();
 
+mySound.pause();
 wines=[];
 score=0;
 dead=0;
@@ -296,19 +255,6 @@ function refreshDead() {
     
 }
 
-// function finishGame(){ la comento por si esta afectando 
-    
-//     if(overPoints >= 0){
-//         console.log ("perdiste");
-//         //ctx.drawImage (gameOver, 0, 0);
-//         // document.getElementById("game").remove();
-//         // clearInterval(intervalId);
-    
-//         // location.href = "gameOver.html";
-//    }
-// }
-
-
 
     
 function wineCollision(){ 
@@ -348,14 +294,7 @@ function wineCollision(){
                 
                 }
             
-            //game over
-
-            // isGameover = true
-            // gameOver(); //Crear funcion game over
-            // overPoints ++;
-          
-                
-                // overPoints ++;
+            
 
                
           
@@ -377,32 +316,6 @@ function removeFromArray(array, value) {
     }
     return array;
 }
-
-
-
-
-
-//Pruebas anteriores:
-
-
-// function colision () { //si llamo a wine no funciona
-//     // variables for easier reading
-//     var binLeft = this.x;
-//     var binRight = this.x + this.size;
-//     var binTop = this.y;
-//     var binBottom = this.y + this.size;
-//     // variables for easier reading
-//     var wineLeft = wine.x;
-//     var wineRight = wine.x + wine.width;
-//     var wineTop = wine.y;
-//     var wineBottom = wine.y + wine.height;
-//     // collision check
-//     if (wineBottom > binTop && wineLeft > binLeft && wineRight < binRight) {
-//       score++;
-//       return true;
-//     }
-//     return false;
-//   }
 
 
 
