@@ -27,19 +27,19 @@ My project consists of an interactive recycling game, in which in the first leve
 ## Data structure
 Classes and methods definition.
 
-buildDom(){}
-buildSplashScreen () {}
-buildGameScreen () {}
-buildGameOverScreen () {}
-draw(){}
-drawCanvas(){}
-clearCanvas(){}
-gameOver(){}
-count (){}
-addEventListener (){}
-drawImage(){}
-clearInterval(){}
-move(){}
+- buildDom(){}
+- buildSplashScreen () {}
+- buildGameScreen () {}
+- buildGameOverScreen () {}
+- draw(){}
+- drawCanvas(){}
+- clearCanvas(){}
+- gameOver(){}
+- count (){}
+- addEventListener (){}
+- drawImage(){}
+- clearInterval(){}
+- gitmove(){}
 
 
 
