@@ -4,7 +4,7 @@
 //let ctx;
 
 let bgImg = new Image();
-bgImg.src = 'background.png';
+bgImg.src = 'background5.png';
 
 let wine = new Image();
 wine.src = 'wine.png';
@@ -12,8 +12,8 @@ wine.src = 'wine.png';
 let bin = new Image();
 bin.src = 'bin.png';
 
-// let gameOver = new Image();
-// gameOver.src = 'gameOver.png'
+let gameOver = new Image();
+gameOver.src = 'gameOver.png'
 
 
 let wineX = 100; // x position
@@ -43,10 +43,15 @@ var totalwines = 10;
 var wines = [];
 
 var dead = 0;
-var water = 800;//si las botellas se te caen al agua pierdes 
-var scoretoWin = 4;
+var water = 500;//variable que define la linea de donde empieza el mar
+var scoretoWin = 4; //botellas que necesitas para ganar
+var scoretoDead = 10;//si estas botellas caen al mar pierdes
+var mySound; //tratando de crear un sonido
     
-
+// function play() {
+//     var audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3');
+//     audio.play();
+//   }//tratando de implementar audio
 
 
 document.addEventListener('keydown', function(event){
@@ -63,6 +68,22 @@ document.addEventListener('keyup', function(event){
     isRightArrow = false;
     isLefttArrow = false;
 })
+
+
+// function sound(src) {  tratando de crear sonido
+//     this.sound = document.createElement("audio");
+//     this.sound.src = src;
+//     this.sound.setAttribute("preload", "auto");
+//     this.sound.setAttribute("controls", "none");
+//     this.sound.style.display = "none";
+//     document.body.appendChild(this.sound);
+//     this.play = function(){
+//       this.sound.play();
+//     }
+//     this.stop = function(){
+//       this.sound.pause();
+//     }
+//   }
 
 
 // function clearCanvas() {
@@ -87,6 +108,7 @@ function draw() {
     ctx.drawImage (bin, binX, binY);//arriba declaro estas variables globales y aqui las tengo que llamar
     // checkCollision();
     refreshScore();
+    refreshDead();
     wineCollision();
    
    
@@ -115,6 +137,7 @@ bigButton.addEventListener("click", startGame)
 function startGame() {
     
     showSplash(false);
+    // mySound = new sound("bounce.mp3");//tratando de crear un sonido
     // crear canvas
     //let canvasContainer = document.createElement("div")
     //canvasContainer.setAttribute("id", "canvas-container")
@@ -182,6 +205,7 @@ goImg.onload = function(){
 };
 goImg.src = "gameover.png";
 
+
 wines=[];
 score=0;
 dead=0;
@@ -199,6 +223,8 @@ function youWin(){
     // game.load.image('start', 'button.png');
 };
 bgImg.src = "winner.png"
+//mySound.play();//tratando de crear sonido
+//play();
 
 wines=[];
 score=0;
@@ -254,6 +280,14 @@ function refreshScore() {
     
 }
 
+function refreshDead() {
+    deadSpan = dead;
+    ctx.fillStyle = "black";
+    ctx.font = "20px Verdana";
+    ctx.fillText('Dead: ' + dead,650, 30); 
+    
+}
+
 // function finishGame(){ la comento por si esta afectando 
     
 //     if(overPoints >= 0){
@@ -294,9 +328,10 @@ function wineCollision(){
               }
          }
     
-        else if(wine.y >= water){
+        else if(wine.y == water){
                 dead ++;
-                if (dead >= 20) {
+                console.log ('me muero');
+                if (dead == scoretoDead) {
                 clearInterval(intervalId);
                 // location.href = "gameover.html";
                 showSplash(true);
