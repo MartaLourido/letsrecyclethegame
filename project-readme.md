@@ -28,8 +28,8 @@ My project consists of an interactive recycling game, in which in the first leve
 
 ## Backlog
 
--I have to add a scoreboard
--Improve the game with colored bins to choose according to the type of trash that falls
+- I have to add a scoreboard
+- Improve the game with colored bins to choose according to the type of trash that falls
 
 ## Data structure
 Classes and methods definition.
