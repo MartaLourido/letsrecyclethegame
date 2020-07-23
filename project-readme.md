@@ -12,7 +12,7 @@
 
 
 ### Google Drive Slides
-[Link Slides.com](https://docs.google.com/presentation/d/1GLfSQp62vIQezthEf9sqkQHMKG8Lq8LRLvl2QsfO43M/edit?usp=sharing)
+[Link Slides](https://docs.google.com/presentation/d/1GLfSQp62vIQezthEf9sqkQHMKG8Lq8LRLvl2QsfO43M/edit?usp=sharing)
 
 
 ## Description
