@@ -44,7 +44,7 @@ var wines = [];
 
 var dead = 0;
 var water = 500;//variable que define la linea de donde empieza el mar
-var scoretoWin = 4; //botellas que necesitas para ganar
+var scoretoWin = 10; //botellas que necesitas para ganar
 var scoretoDead = 10;//si estas botellas caen al mar pierdes
 var mySound; //tratando de crear un sonido
     

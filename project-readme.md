@@ -1,4 +1,12 @@
-# Project's name
+# Let's Recycle - The Game
+
+## Links 
+
+Trello --> https://trello.com/b/RXkes4nE/lets-recycle-my-first-game
+
+Github --> https://github.com/MartaLourido/letsrecyclethegame
+
+
 
 ## Description
 My project consists of an interactive recycling game, in which in the first level there is simply a bin and it rains recyclable waste and you have to pick it up with the bin.
