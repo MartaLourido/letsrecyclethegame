@@ -1,11 +1,18 @@
 # Let's Recycle - The Game
+## Links
 
-## Links 
 
-Trello --> https://trello.com/b/RXkes4nE/lets-recycle-my-first-game
+### Trello
+[Link url]( https://trello.com/b/RXkes4nE/lets-recycle-my-first-game)
 
-Github --> https://github.com/MartaLourido/letsrecyclethegame
 
+### Git
+[Link Repo](https://github.com/MartaLourido/letsrecyclethegame)
+[Link Deploy](http://github.com)
+
+
+### Google Drive Slides
+[Link Slides.com](https://docs.google.com/presentation/d/1GLfSQp62vIQezthEf9sqkQHMKG8Lq8LRLvl2QsfO43M/edit?usp=sharing)
 
 
 ## Description
@@ -35,7 +42,6 @@ Classes and methods definition.
 - drawCanvas(){}
 - clearCanvas(){}
 - gameOver(){}
-- count (){}
 - addEventListener (){}
 - drawImage(){}
 - clearInterval(){}
@@ -75,19 +81,3 @@ Definition of the different states and their transition (transition functions)
 * Trash - trashFalls
 
 
-## Links
-
-
-### Trello
-[Link url](https://trello.com/b/RXkes4nE/lets-recycle-my-first-game)
-
-
-### Git
-URls for the project repo and deploy
-[Link Repo](http://github.com)
-[Link Deploy](http://github.com)
-
-
-### Slides
-URls for the project presentation (slides)
-[Link Slides.com](http://slides.com)
