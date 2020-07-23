@@ -25,7 +25,7 @@ let wineYincrement = 5;
 
 let binX = 390;
 let binY = 490;
-let binWidth = 100;
+let binWidth = 80;
 let binHeight = 20;
 let isRightArrow = false;
 let isLefttArrow = false;
@@ -48,7 +48,7 @@ var scoretoWin = 10; //botellas que necesitas para ganar
 var scoretoDead = 10;//si estas botellas caen al mar pierdes
 //var mySound; //tratando de crear un sonido
 
-var mySound;
+var mySound
 
 
 
@@ -66,13 +66,16 @@ document.addEventListener('keyup', function(event){
     isRightArrow = false;
     isLefttArrow = false;
 })
+ 
 
 function sound(src) {
+   
     this.sound = document.createElement("audio");
     this.sound.src = src;
     this.sound.setAttribute("preload", "auto");
     this.sound.setAttribute("controls", "none");
     this.sound.style.display = "none";
+    this.sound.volume = 0.05;
     document.body.appendChild(this.sound);
     this.play = function(){
       this.sound.play();
@@ -104,7 +107,6 @@ function draw() {
     refreshScore();
     refreshDead();
     wineCollision();
-   
     mySound.play();//play the background sound
     for (var i = 0; i < wines.length; i++) {
         ctx.drawImage (wine, wines[i].x, wines[i].y);
@@ -161,16 +163,20 @@ function changeButtonStartText (text){
 
  
 function gOver(){
+
 let canvas = document.getElementById('game');
 
 let ctx = canvas.getContext('2d');
+ctx.fillText('Score: ' + score, 10, 30);
 
 let goImg = new Image();
 goImg.onload = function(){
     ctx.drawImage(goImg, 0, 0, 760, 760);
+    mySound.stop();
     // game.load.image('start', 'button.png');
 };
 goImg.src = "gameover.png";
+
 
 
 // mySound.pause();
@@ -192,6 +198,7 @@ function youWin(){
     let bgImg = new Image();
     bgImg.onload = function(){
     ctx.drawImage(bgImg, 0, 0, 760, 760);
+    mySound.stop();
     // game.load.image('start', 'button.png');
 };
 bgImg.src = "winner.png"
@@ -214,7 +221,7 @@ function binMovement(){
 
 
 function addwine() {
-    let ranthomPossibility = Math.floor(Math.random() * 20) //1 de 20 posibilidades de que se cree un nuevo vino en un lugar aleatorio
+    let ranthomPossibility = Math.floor(Math.random() * 50) //botellas que caeran --> 1 de 20 posibilidades de que se cree un nuevo vino en un lugar aleatorio
     let ranthomPlace = Math.floor(Math.random() * canvas.width)
     if(ranthomPossibility === 1){
         var wine = {
@@ -274,7 +281,7 @@ function wineCollision(){
         //console.log(wine.y);
         // console.log(wine.x);
         // console.log(binX);
-        if((wine.y >= binY)&&(wine.x >= binX && wine.x <= binX+100)){
+        if((wine.y >= binY-45)&&(wine.x >= binX && wine.x <= binX+100)){//estableciendo la colision con el bin
             console.log("paso entre medio del bin");
             score++;
             winesToRemove.push(wine);

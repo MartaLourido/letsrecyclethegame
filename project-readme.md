@@ -8,7 +8,7 @@
 
 ### Git
 [Link Repo](https://github.com/MartaLourido/letsrecyclethegame)
-[Link Deploy](http://github.com)
+[Link Deploy](https://martalourido.github.io/)
 
 
 ### Google Drive Slides
