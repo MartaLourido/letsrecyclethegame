@@ -10,7 +10,7 @@ Github --> https://github.com/MartaLourido/letsrecyclethegame
 
 ## Description
 My project consists of an interactive recycling game, in which in the first level there is simply a bin and it rains recyclable waste and you have to pick it up with the bin.
-In the possible improvement, there will be three bins and you will have to change the color of the bin depending on the type of trash that falls: plastic, paper, organic...
+
 
 ## MVP (DOM - CANVAS)
 -The game has a bin wich can that moves horizontally
